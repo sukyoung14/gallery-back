@@ -27,7 +27,7 @@ jobs:
         run : ./gradlew test
   build:
     needs: test
-    if: girhub.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
     steps:
@@ -46,8 +46,8 @@ jobs:
       - name: Build and Push
         uses: docker/build-push-action@v5
         with:
-          centext: .
+          context: .
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/gallery-back:lastest
+            ${{ secrets.DOCKER_USERNAME }}/gallery-back:latest
             ${{ secrets.DOCKER_USERNAME }}/gallery-back:${{ github.sha }}
